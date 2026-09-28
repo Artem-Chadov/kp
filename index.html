@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Коммерческое предложение</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #101214;
+    --card: #1C2024;
+    --ink: #F4F2EC;
+    --mute: #9BA1A6;
+    --amber: #E9B44C;
+    --line: #2A2F34;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: auto; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 400 17px/1.55 "Golos Text", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(900px 700px at 82% -6%, rgba(233,180,76,.16), transparent 60%),
+      radial-gradient(900px 700px at -8% 104%, rgba(64,90,120,.15), transparent 62%); }
+  body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* липкая шапка и прогресс */
+  .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 24px; font: 600 12px/1 "Golos Text"; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--mute); background: linear-gradient(rgba(16,18,20,.9), rgba(16,18,20,0)); pointer-events: none; }
+  .bar b { color: var(--ink); font-weight: 600; }
+  #progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 60;
+    background: var(--amber); transform-origin: 0 50%; transform: scaleX(0); }
+
+  .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* хиро */
+  .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: 120px; padding-bottom: 80px; position: relative; overflow: clip; }
+  .hero .wm { position: absolute; right: -3%; bottom: 4%; font: 800 clamp(120px, 24vw, 300px)/1 "Unbounded";
+    color: transparent; -webkit-text-stroke: 2px rgba(244,242,236,.06); white-space: nowrap; pointer-events: none; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 18px; border-radius: 20px;
+    background: rgba(244,242,236,.06); border: 1px solid var(--line);
+    font: 600 12.5px/1 "Golos Text"; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+  h1 { font: 800 clamp(42px, 8.6vw, 104px)/1.04 "Unbounded"; text-transform: uppercase; letter-spacing: .005em; }
+  h1 .cl { color: var(--amber); }
+  .hero .sub { margin-top: 30px; max-width: 620px; font-size: clamp(17px, 2vw, 21px); color: var(--mute); }
+  .hero .sub b { color: var(--ink); font-weight: 600; }
+  .hint { position: absolute; bottom: 28px; left: 0; display: flex; align-items: center; gap: 12px;
+    font: 600 12px/1 "Golos Text"; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .hint::after { content: ""; width: 1px; height: 44px; background: linear-gradient(var(--amber), transparent); }
+
+  /* секции */
+  section { padding: 110px 0 30px; }
+  .kicker { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px;
+    font: 700 13px/1 "Golos Text"; letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .kicker em { font: 800 13px/1 "Unbounded"; font-style: normal; color: var(--amber); }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  h2 { font: 800 clamp(28px, 4.6vw, 52px)/1.1 "Unbounded"; text-transform: uppercase; margin-bottom: 14px; }
+  .lead { color: var(--mute); max-width: 640px; margin-bottom: 40px; font-size: 18px; }
+  .lead b, .card p b { color: var(--ink); font-weight: 600; }
+
+  .ph { color: var(--amber); font-style: italic; }
+
+  .grid { display: grid; gap: 18px; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+  .card .n { font: 800 14px/1 "Unbounded"; color: var(--amber); margin-bottom: 16px; letter-spacing: .05em; }
+  .card h3 { font: 700 19px/1.3 "Golos Text"; margin-bottom: 10px; }
+  .card p { color: var(--mute); font-size: 15.5px; }
+
+  /* шаги */
+  .steps { counter-reset: s; }
+  .step { position: relative; padding: 26px 28px 26px 84px; }
+  .step::before { counter-increment: s; content: "0" counter(s);
+    position: absolute; left: 24px; top: 26px; font: 800 15px/1 "Unbounded"; color: var(--amber); }
+  .step::after { content: ""; position: absolute; left: 34px; top: 56px; bottom: -18px; width: 1px;
+    background: var(--line); }
+  .step:last-child::after { display: none; }
+  .step h3 { font: 700 19px/1.3 "Golos Text"; }
+  .step p { color: var(--mute); font-size: 15.5px; margin-top: 6px; }
+  .step .ok { display: inline-block; margin-top: 12px; font: 600 13px/1 "Golos Text"; color: var(--ink);
+    background: rgba(233,180,76,.1); border: 1px solid rgba(233,180,76,.25); border-radius: 14px; padding: 7px 12px; }
+
+  /* счётчики */
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; }
+  .num { border-top: 1px solid var(--line); padding-top: 18px; }
+  .num b { display: block; font: 800 clamp(30px, 4vw, 44px)/1 "Unbounded"; color: var(--ink); }
+  .num b .cl { color: var(--amber); }
+  .num > span { display: block; margin-top: 8px; color: var(--mute); font-size: 14px; }
+  .num b span { font: inherit; color: inherit; }
+
+  /* работы: мокап ноутбука */
+  .laptop { border: 1px solid var(--line); border-radius: 14px 14px 4px 4px; background: #0B0D0E; padding: 10px 10px 16px; position: relative; }
+  .laptop::before { content: ""; position: absolute; top: 5px; left: 50%; width: 44px; height: 3px; margin-left: -22px;
+    border-radius: 2px; background: var(--line); }
+  .laptop .scr { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden;
+    background: linear-gradient(160deg, #23282D, #14171A 70%); display: flex; align-items: center; justify-content: center;
+    color: var(--amber); font: 600 14px/1.5 "Golos Text"; font-style: italic; text-align: center; padding: 12px; }
+  .laptop .base { position: absolute; left: -6%; right: -6%; bottom: -8px; height: 8px; border-radius: 0 0 10px 10px;
+    background: #1A1E22; border: 1px solid var(--line); }
+  .work { padding: 0 0 22px; }
+  .work h3 { font: 700 17px/1.3 "Golos Text"; margin: 22px 0 6px; }
+  .work p { color: var(--mute); font-size: 14.5px; }
+
+  /* тарифы */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+  .plan { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;
+    display: flex; flex-direction: column; transition: transform .35s cubic-bezier(.22,.8,.26,1), border-color .35s; }
+  .plan:hover { transform: translateY(-6px); border-color: rgba(233,180,76,.4); }
+  .plan.mid { border-color: rgba(233,180,76,.55); box-shadow: 0 0 60px rgba(233,180,76,.1); position: relative; }
+  .plan .tag { position: absolute; top: -13px; left: 26px; background: var(--amber); color: #17130A;
+    font: 700 11.5px/1 "Golos Text"; letter-spacing: .12em; text-transform: uppercase; border-radius: 13px; padding: 8px 12px; }
+  .plan h3 { font: 800 17px/1.2 "Unbounded"; text-transform: uppercase; margin-bottom: 18px; }
+  .plan .price { font: 800 clamp(26px, 3vw, 34px)/1 "Unbounded"; margin-bottom: 4px; }
+  .plan .per { color: var(--mute); font-size: 13.5px; margin-bottom: 22px; }
+  .plan ul { list-style: none; display: grid; gap: 10px; margin-bottom: 26px; }
+  .plan li { position: relative; padding-left: 22px; font-size: 15px; color: var(--mute); }
+  .plan li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(233,180,76,.9); }
+  .plan li.no { opacity: .45; }
+  .plan li.no::before { background: var(--line); }
+  .plan .go { margin-top: auto; display: inline-flex; justify-content: center; align-items: center; height: 52px;
+    border-radius: 26px; border: 1px solid var(--line); color: var(--ink); text-decoration: none;
+    font: 600 15px/1 "Golos Text"; transition: .3s; }
+  .plan.mid .go { background: var(--amber); border-color: var(--amber); color: #17130A; font-weight: 700; }
+  .plan .go:hover { border-color: var(--amber); }
+  .plan.mid .go:hover { filter: brightness(1.08); }
+
+  /* финал */
+  .final { min-height: 72svh; display: flex; flex-direction: column; justify-content: center; position: relative; padding-bottom: 90px; }
+  .final h2 { max-width: 800px; }
+  .final .sub { color: var(--mute); max-width: 560px; margin: 18px 0 36px; font-size: 18px; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; height: 62px; padding: 0 34px; border-radius: 32px;
+    background: var(--amber); color: #17130A; text-decoration: none; font: 700 17px/1 "Golos Text";
+    box-shadow: 0 0 70px rgba(233,180,76,.25); transition: .3s; width: fit-content; }
+  .cta:hover { filter: brightness(1.07); transform: translateY(-2px); }
+  .final .note { margin-top: 26px; color: var(--mute); font-size: 14px; }
+
+  footer { border-top: 1px solid var(--line); padding-top: 26px; padding-bottom: 34px; display: flex; justify-content: space-between;
+    gap: 14px; flex-wrap: wrap; color: var(--mute); font-size: 13.5px; position: relative; z-index: 1; }
+
+  /* кастомный курсор: точка, кольцо, фонарик (создаются скриптом только на мыши) */
+  .has-cursor, .has-cursor a, .has-cursor button, .has-cursor summary { cursor: none; }
+  .cur-dot, .cur-ring, .torch { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100; }
+  .cur-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--amber); }
+  .cur-ring { width: 42px; height: 42px; margin: -21px 0 0 -21px; border-radius: 50%;
+    border: 1.5px solid rgba(233,180,76,.55); transition: background .25s; }
+  .cursor-on .cur-ring { background: rgba(233,180,76,.12); }
+  .torch { width: 520px; height: 520px; margin: -260px 0 0 -260px; z-index: 2; mix-blend-mode: soft-light;
+    background: radial-gradient(circle, rgba(233,180,76,.55), rgba(233,180,76,.12) 45%, transparent 70%); }
+
+  /* прожектор на карточках */
+  .card, .plan, .laptop { position: relative; }
+  .card, .laptop { overflow: clip; }
+  .card::after, .plan::after, .laptop::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    border-radius: inherit; opacity: 0; transition: opacity .35s;
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(233,180,76,.09), transparent 65%); }
+  .card:hover::after, .plan:hover::after, .laptop:hover::after { opacity: 1; }
+
+  /* было — станет */
+  .shift { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .shift .col { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+  .shift .col.now { border-color: rgba(233,180,76,.4); box-shadow: 0 0 50px rgba(233,180,76,.07); }
+  .shift h3 { font: 800 14px/1 "Unbounded"; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px; }
+  .shift .col.was h3 { color: var(--mute); }
+  .shift .col.now h3 { color: var(--amber); }
+  .shift ul { list-style: none; display: grid; gap: 14px; }
+  .shift li { position: relative; padding-left: 26px; font-size: 15.5px; }
+  .shift .was li { color: var(--mute); }
+  .shift .was li::before { content: ""; position: absolute; left: 4px; top: 8px; width: 8px; height: 2px; background: var(--mute); opacity: .6; }
+  .shift .now li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--amber); font-weight: 700; }
+
+  /* частые вопросы */
+  .faq { display: grid; gap: 12px; max-width: 760px; }
+  .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 0 24px;
+    interpolate-size: allow-keywords; }
+  .faq details[open] { border-color: rgba(233,180,76,.35); }
+  .faq summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 20px 0; font: 600 16.5px/1.35 "Golos Text"; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; flex: none; width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid var(--line); display: grid; place-items: center;
+    font: 500 18px/1 "Golos Text"; color: var(--amber); transition: transform .35s, background .35s; }
+  .faq details[open] summary::after { transform: rotate(45deg); background: rgba(233,180,76,.12); }
+  .faq details::details-content { height: 0; overflow: clip;
+    transition: height .35s ease, content-visibility .35s allow-discrete; }
+  .faq details[open]::details-content { height: auto; }
+  .faq .a { padding: 0 44px 22px 0; color: var(--mute); font-size: 15.5px; }
+  .faq .a b { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .g3, .plans, .nums { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .g3, .g2, .plans, .nums, .shift { grid-template-columns: 1fr; }
+    section { padding: 80px 0 20px; }
+    .plan.mid { order: -1; }
+    .step { padding-left: 64px; }
+    .step::before { left: 10px; }
+    .step::after { left: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plan, .cta { transition: none; }
+  }
+  @media print {
+    body::before, body::after, .bar, #progress, .hint { display: none; }
+    * { opacity: 1 !important; transform: none !important; box-shadow: none !important; }
+    body { background: #fff; color: #111; font-size: 12pt; }
+    :root { --bg: #fff; --card: #fff; --ink: #111; --mute: #444; --line: #bbb; }
+    .hero { min-height: auto; padding: 40px 0; }
+    .hero .wm { display: none; }
+    section { padding: 28px 0; break-inside: avoid; }
+    .plan .go, .cta { border: 1px solid #999; color: #111; background: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="bar"><span><b>Артём Чадов</b> · сайты</span><span id="secnum"><b>01</b> / 09</span></div>
+
+<!-- хиро -->
+<header class="hero wrap" id="s0">
+  <div class="wm">КП</div>
+  <div class="chips" data-intro>
+    <span class="chip"><i></i>Коммерческое предложение</span>
+    <span class="chip ph">[ниша клиента]</span>
+    <span class="chip ph">[дата]</span>
+  </div>
+  <h1 data-intro>Сайт для<br><span class="cl ph">[название клиента]</span></h1>
+  <p class="sub" data-intro>Внутри&nbsp;— как я&nbsp;понял вашу задачу, план работ по&nbsp;шагам и&nbsp;<b>три варианта на&nbsp;выбор</b>. Читается за&nbsp;пять минут.</p>
+  <div class="hint" data-intro>Листайте</div>
+</header>
+
+<main class="wrap">
+
+<!-- 01 задача -->
+<section id="s1" data-sec="01">
+  <div class="kicker"><em>01</em>Задача</div>
+  <h2>Зачем вам сайт</h2>
+  <p class="lead">Не&nbsp;«сделать красиво», а&nbsp;решить задачу бизнеса. Как я&nbsp;её&nbsp;понял с&nbsp;ваших слов:</p>
+  <div class="grid g3">
+    <div class="card" data-rev><div class="n">Доверие</div><h3 class="ph">[что сейчас: отзывы отличные, а вести человека некуда]</h3><p>Страница отвечает на&nbsp;вопросы до&nbsp;звонка: услуги, цены, фото работ.</p></div>
+    <div class="card" data-rev><div class="n">Посадочная</div><h3 class="ph">[куда идёт трафик: карты, реклама, шапка группы]</h3><p>Тот&nbsp;же трафик, но&nbsp;человек попадает туда, где всё ясно,&nbsp;— и&nbsp;оставляет заявку.</p></div>
+    <div class="card" data-rev><div class="n">Заявки</div><h3 class="ph">[что теряется: вечерние звонки, заказы в личке]</h3><p>Форма записи работает и&nbsp;в&nbsp;23:00, когда вы&nbsp;уже закрыты.</p></div>
+  </div>
+</section>
+
+<!-- 02 что изменится -->
+<section id="s1b" data-sec="02">
+  <div class="kicker"><em>02</em>Что изменится</div>
+  <h2>Как сейчас — и как станет</h2>
+  <p class="lead">Без обещаний золотых гор. Просто два сценария одного и того же дня: <span class="ph">[подставить пример из ниши клиента]</span></p>
+  <div class="shift">
+    <div class="col was" data-rev>
+      <h3>Как сейчас</h3>
+      <ul>
+        <li>Человек с карт попадает в ленту соцсети — и уходит листать конкурентов</li>
+        <li>Вечерний клиент звонит в закрытую дверь, заявка пропадает</li>
+        <li>Цены выспрашивают в личке — половина до ответа не доживает</li>
+        <li>Решение принимают по чужим отзывам на агрегаторах</li>
+      </ul>
+    </div>
+    <div class="col now" data-rev>
+      <h3>Как станет</h3>
+      <ul>
+        <li>Тот же человек видит услуги, цены и запись — и оставляет заявку</li>
+        <li>Форма работает круглосуточно, утром заявка ждёт вас</li>
+        <li>Цены и ответы видны сразу — пишут уже тёплыми</li>
+        <li>Доверие собираете вы: работы, лица и отзывы в одном месте</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 03 референсы -->
+<section id="s2" data-sec="03">
+  <div class="kicker"><em>03</em>Референсы</div>
+  <h2>Что нравится вам&nbsp;— и&nbsp;что делают коллеги</h2>
+  <p class="lead">Ваши примеры плюс те, кого вы&nbsp;не&nbsp;называли. Что берём, что делаем лучше:</p>
+  <div class="grid g3">
+    <div class="card" data-rev><h3 class="ph">[референс клиента 1]</h3><p class="ph">[что в нём работает: крупные фото, цены без «уточняйте»]</p></div>
+    <div class="card" data-rev><h3 class="ph">[референс клиента 2]</h3><p class="ph">[что не берём и почему]</p></div>
+    <div class="card" data-rev><h3 class="ph">[конкурент, которого он не назвал]</h3><p class="ph">[чем выделимся на его фоне]</p></div>
+  </div>
+  <p class="lead" style="margin-top:28px;">Вывод: <span class="ph">[почему предлагаю именно такие варианты — одной фразой]</span></p>
+</section>
+
+<!-- 03 план -->
+<section id="s3" data-sec="04">
+  <div class="kicker"><em>04</em>План работ</div>
+  <h2>Шесть шагов&nbsp;— виден весь путь</h2>
+  <p class="lead">Каждый шаг заканчивается вашим «да». Дальше двигаемся только после утверждения.</p>
+  <div class="steps">
+    <div class="step" data-rev><h3>Разговор о&nbsp;задаче</h3><p>Что за&nbsp;дело, откуда клиенты, что должно измениться.</p><span class="ok">Итог: понятая задача</span></div>
+    <div class="step" data-rev><h3>Структура сайта</h3><p>Разделы, первый экран, что писать в&nbsp;блоках&nbsp;— под вашу ситуацию.</p><span class="ok">Итог: утверждённая структура</span></div>
+    <div class="step" data-rev><h3>Договор и&nbsp;первая оплата</h3><p>Сроки, цена и&nbsp;этапы зафиксированы в&nbsp;договоре. Чек самозанятого.</p><span class="ok">Итог: подписанный договор</span></div>
+    <div class="step" data-rev><h3>Дизайн и&nbsp;сборка</h3><p>Собираю сайт, промежуточный результат показываю по&nbsp;ссылке.</p><span class="ok">Итог: рабочая версия</span></div>
+    <div class="step" data-rev><h3>Правки и&nbsp;утверждение</h3><p>Проходим по&nbsp;странице вместе, довожу до&nbsp;вашего «нравится».</p><span class="ok">Итог: утверждённый сайт</span></div>
+    <div class="step" data-rev><h3>Запуск</h3><p>Домен, публикация, вторая оплата. Дальше&nbsp;— месяц технических правок.</p><span class="ok">Итог: сайт работает</span></div>
+  </div>
+</section>
+
+<!-- 04 условия -->
+<section id="s4" data-sec="05">
+  <div class="kicker"><em>05</em>Условия</div>
+  <h2>Без сюрпризов</h2>
+  <div class="grid g2" style="margin-top:34px;">
+    <div class="card" data-rev><h3>Договор и&nbsp;чек</h3><p>Работаю официально как самозанятый: договор с&nbsp;ценой и&nbsp;сроками, чек после каждой оплаты.</p></div>
+    <div class="card" data-rev><h3>Оплата по&nbsp;этапам</h3><p><b>До&nbsp;договора вы&nbsp;ничего не&nbsp;платите.</b> Первая часть&nbsp;— после утверждения структуры, вторая&nbsp;— при запуске.</p></div>
+    <div class="card" data-rev><h3>Под ключ</h3><p>Тексты и&nbsp;техническая часть на&nbsp;мне: домен, подключение, скорость, телефонная версия.</p></div>
+    <div class="card" data-rev><h3>Месяц правок</h3><p>Месяц после запуска правлю тексты, фото и&nbsp;мелочи&nbsp;— это входит в&nbsp;цену.</p></div>
+  </div>
+  <div class="nums">
+    <div class="num" data-rev><b><span data-count="0">0</span>&nbsp;₽</b><span>платите до&nbsp;договора</span></div>
+    <div class="num" data-rev><b><span data-count="6">0</span></b><span>шагов&nbsp;— и&nbsp;каждый утверждаете вы</span></div>
+    <div class="num" data-rev><b><span data-count="2">0</span></b><span>оплаты: после структуры и&nbsp;при запуске</span></div>
+    <div class="num" data-rev><b><span data-count="30">0</span>&nbsp;<span class="cl">дней</span></b><span>правок после запуска&nbsp;— бесплатно</span></div>
+  </div>
+</section>
+
+<!-- 05 работы -->
+<section id="s5" data-sec="06">
+  <div class="kicker"><em>06</em>Работы</div>
+  <h2>Похожие задачи</h2>
+  <p class="lead">Не&nbsp;всё портфолио&nbsp;— три работы, близкие к&nbsp;вашей. Ссылки живые: откройте с&nbsp;телефона и&nbsp;посмотрите, как это устроено.</p>
+  <div class="grid g3">
+    <div class="work" data-rev>
+      <div class="laptop"><div class="scr ph">[скрин работы 1 — та же ниша]</div><div class="base"></div></div>
+      <h3 class="ph">[название + ссылка]</h3><p class="ph">[какая была задача и что сделано]</p>
+    </div>
+    <div class="work" data-rev>
+      <div class="laptop"><div class="scr ph">[скрин работы 2 — похожая механика]</div><div class="base"></div></div>
+      <h3 class="ph">[название + ссылка]</h3><p class="ph">[например: запись, каталог, до/после]</p>
+    </div>
+    <div class="work" data-rev>
+      <div class="laptop"><div class="scr ph">[скрин работы 3]</div><div class="base"></div></div>
+      <h3 class="ph">[название + ссылка]</h3><p class="ph">[одной строкой]</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 тарифы -->
+<section id="s6" data-sec="07">
+  <div class="kicker"><em>07</em>Варианты</div>
+  <h2>Три варианта&nbsp;— по&nbsp;одним строкам</h2>
+  <p class="lead">Выбирать «какой из&nbsp;трёх» проще, чем «да или нет». Средний берут чаще всего.</p>
+  <div class="plans">
+    <div class="plan" data-rev>
+      <h3>Одна страница</h3>
+      <div class="price ph">[NN&nbsp;000&nbsp;₽]</div>
+      <div class="per ph">[срок: N дней]</div>
+      <ul>
+        <li>Структура и&nbsp;тексты</li>
+        <li>Дизайн под ваше дело, не&nbsp;шаблон</li>
+        <li>Телефонная версия</li>
+        <li>Форма заявки</li>
+        <li>Месяц правок после запуска</li>
+        <li class="no">Домен и&nbsp;запуск под ключ</li>
+        <li class="no">Телеграм-бот для заявок</li>
+      </ul>
+      <a class="go ph" href="#" >Обсудить этот вариант</a>
+    </div>
+    <div class="plan mid" data-rev>
+      <div class="tag">Выбирают чаще</div>
+      <h3>Под ключ</h3>
+      <div class="price ph">[NN&nbsp;000&nbsp;₽]</div>
+      <div class="per ph">[срок: N дней]</div>
+      <ul>
+        <li>Всё из&nbsp;«Одной страницы»</li>
+        <li>Объём&nbsp;<span class="ph">[8–12 блоков]</span></li>
+        <li>Карта, отзывы, запись</li>
+        <li>Домен, почта, запуск&nbsp;— под ключ</li>
+        <li>Месяц правок после запуска</li>
+        <li class="no">Телеграм-бот для заявок</li>
+      </ul>
+      <a class="go ph" href="#">Обсудить этот вариант</a>
+    </div>
+    <div class="plan" data-rev>
+      <h3>Под ключ + бот</h3>
+      <div class="price ph">[NN&nbsp;000&nbsp;₽]</div>
+      <div class="per ph">[срок: N дней]</div>
+      <ul>
+        <li>Всё из&nbsp;«Под ключ»</li>
+        <li>Телеграм-бот: заявки падают вам в&nbsp;чат</li>
+        <li>Автоответы на&nbsp;частые вопросы</li>
+        <li>Месяц правок после запуска</li>
+      </ul>
+      <a class="go ph" href="#">Обсудить этот вариант</a>
+    </div>
+  </div>
+</section>
+
+<!-- 08 частые вопросы -->
+<section id="s8" data-sec="08">
+  <div class="kicker"><em>08</em>Частые вопросы</div>
+  <h2>Что обычно спрашивают</h2>
+  <p class="lead">Отвечаю заранее, чтобы на созвоне говорить о вашем деле, а не о формальностях.</p>
+  <div class="faq">
+    <details data-rev>
+      <summary>Почему я ничего не плачу до договора?</summary>
+      <div class="a">Сначала я разбираю вашу задачу и присылаю структуру будущего сайта. <b>Вы смотрите на подход до того, как речь заходит о деньгах.</b> Первая оплата — только после того, как структура вам понравилась и мы подписали договор.</div>
+    </details>
+    <details data-rev>
+      <summary>А если мне не понравится дизайн?</summary>
+      <div class="a">Путь разбит на шесть шагов, и каждый заканчивается вашим «да». <b>Дальше я не двигаюсь, пока вам не нравится.</b> Правки — это часть работы, а не одолжение.</div>
+    </details>
+    <details data-rev>
+      <summary>Сколько времени это займёт у меня?</summary>
+      <div class="a">Один разговор о деле в начале и два-три коротких созвона по ходу. <b>Тексты, фото и техническая часть — на мне.</b> Ваше участие — рассказать о деле и говорить «да» или «поправь».</div>
+    </details>
+    <details data-rev>
+      <summary>Что будет после запуска?</summary>
+      <div class="a">Месяц правок бесплатно: тексты, фото, мелочи. <b>Домен и все доступы оформляются на вас</b> — сайт ваш, а не арендованный. Дальше остаюсь на связи.</div>
+    </details>
+    <details data-rev>
+      <summary>Это шаблон?</summary>
+      <div class="a">Нет. Дизайн собирается под ваше дело: <b>цвета, подача и структура — из вашей ниши,</b> а не из каталога тем. Поэтому сайт быстро открывается и не требует ежемесячной платы конструктору.</div>
+    </details>
+    <details data-rev>
+      <summary>Вдруг вы пропадёте?</summary>
+      <div class="a">В договоре — этапы и сроки, работаю официально, с чеком самозанятого. <b>Промежуточный результат вы видите по ссылке на каждом шаге,</b> отвечаю в тот же день.</div>
+    </details>
+  </div>
+</section>
+
+<!-- 09 финал -->
+<section class="final" id="s7" data-sec="09">
+  <div class="kicker"><em>09</em>Следующий шаг</div>
+  <h2 data-rev>Если по&nbsp;смыслу откликается&nbsp;—</h2>
+  <p class="sub" data-rev>выберите вариант, и&nbsp;я&nbsp;пришлю договор. Структуру под вашу задачу вы&nbsp;уже видели&nbsp;— начинаем с&nbsp;неё, без ожидания.</p>
+  <a class="cta" data-rev href="#"><span>Написать в&nbsp;Telegram</span><span class="ph">[@ник]</span></a>
+  <p class="note" data-rev>Предложение действительно до&nbsp;<span class="ph">[дата + 2&nbsp;недели]</span>&nbsp;— потом пересоберу цифры.</p>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span>Артём Чадов · Сайты для небольшого бизнеса и&nbsp;частных специалистов</span>
+  <span>Собрано под <span class="ph">[название клиента]</span>, <span class="ph">[дата]</span></span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous"></script>
+<script>
+(function () {
+  if (!window.gsap || !window.ScrollTrigger) return; // без сети всё остаётся видимым
+  gsap.registerPlugin(ScrollTrigger);
+
+  var mm = gsap.matchMedia();
+  mm.add("(prefers-reduced-motion: no-preference)", function () {
+
+    // прогресс-линия
+    gsap.to("#progress", {
+      scaleX: 1, ease: "none",
+      scrollTrigger: { trigger: document.body, start: "top top", end: "max", scrub: 0.2 }
+    });
+
+    // вступление титула
+    gsap.set("[data-intro]", { autoAlpha: 0, y: 28 });
+    gsap.timeline({ defaults: { ease: "power3.out", duration: 0.9 } })
+      .to("[data-intro]", { autoAlpha: 1, y: 0, stagger: 0.14, delay: 0.15 });
+
+    // появление секций
+    gsap.set("[data-rev]", { autoAlpha: 0, y: 34 });
+    ScrollTrigger.batch("[data-rev]", {
+      start: "top 88%",
+      once: true,
+      onEnter: function (els) {
+        gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.1, overwrite: true });
+      }
+    });
+    // покадровый сторож от «дыр» при прыжках скролла (якорь, End, восстановление позиции):
+    // batch ловит только пересечение линии, прыжок её не пересекает
+    var pending = gsap.utils.toArray("[data-rev]");
+    var lastY = window.scrollY;
+    (function watch() {
+      var jump = Math.abs(window.scrollY - lastY) > window.innerHeight * 1.2;
+      var line = window.innerHeight * (jump ? 0.92 : 0.5);
+      lastY = window.scrollY;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        var el = pending[i];
+        if (getComputedStyle(el).visibility !== "hidden") { pending.splice(i, 1); continue; }
+        if (el.getBoundingClientRect().top < line) {
+          gsap.set(el, { autoAlpha: 1, y: 0, overwrite: true });
+          pending.splice(i, 1);
+        }
+      }
+      if (pending.length) requestAnimationFrame(watch);
+    })();
+
+    // счётчики
+    document.querySelectorAll("[data-count]").forEach(function (el) {
+      var target = parseInt(el.getAttribute("data-count"), 10);
+      var obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: 1.2, ease: "power1.out",
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
+        onUpdate: function () { el.textContent = Math.round(obj.v); }
+      });
+    });
+
+    // номер раздела в шапке
+    document.querySelectorAll("[data-sec]").forEach(function (sec) {
+      ScrollTrigger.create({
+        trigger: sec, start: "top center", end: "bottom center",
+        onToggle: function (self) {
+          if (self.isActive) {
+            document.getElementById("secnum").innerHTML = "<b>" + sec.getAttribute("data-sec") + "</b> / 09";
+          }
+        }
+      });
+    });
+
+    return function () {};
+  });
+
+  // курсор-фонарик: только мышь и только без reduced-motion
+  mm.add("(prefers-reduced-motion: no-preference) and (pointer: fine)", function () {
+    var dot = document.createElement("div");
+    var ring = document.createElement("div");
+    var torch = document.createElement("div");
+    dot.className = "cur-dot"; ring.className = "cur-ring"; torch.className = "torch";
+    document.body.append(torch, ring, dot);
+    document.body.classList.add("has-cursor");
+    gsap.set([dot, ring, torch], { xPercent: 0, yPercent: 0, autoAlpha: 0 });
+
+    var dx = gsap.quickTo(dot, "x", { duration: 0.12, ease: "power3" });
+    var dy = gsap.quickTo(dot, "y", { duration: 0.12, ease: "power3" });
+    var rx = gsap.quickTo(ring, "x", { duration: 0.35, ease: "power3" });
+    var ry = gsap.quickTo(ring, "y", { duration: 0.35, ease: "power3" });
+    var tx = gsap.quickTo(torch, "x", { duration: 0.6, ease: "power2" });
+    var ty = gsap.quickTo(torch, "y", { duration: 0.6, ease: "power2" });
+
+    var shown = false;
+    window.addEventListener("mousemove", function (e) {
+      if (!shown) { shown = true; gsap.to([dot, ring, torch], { autoAlpha: 1, duration: 0.4 }); }
+      dx(e.clientX); dy(e.clientY);
+      rx(e.clientX); ry(e.clientY);
+      tx(e.clientX); ty(e.clientY);
+    });
+    document.documentElement.addEventListener("mouseleave", function () {
+      shown = false; gsap.to([dot, ring, torch], { autoAlpha: 0, duration: 0.3 });
+    });
+
+    var hoverSel = "a, button, summary, .plan";
+    document.addEventListener("mouseover", function (e) {
+      if (e.target.closest(hoverSel)) {
+        document.body.classList.add("cursor-on");
+        gsap.to(ring, { scale: 1.7, duration: 0.3, ease: "power3.out" });
+        gsap.to(dot, { scale: 0.4, duration: 0.3 });
+      }
+    });
+    document.addEventListener("mouseout", function (e) {
+      if (e.target.closest(hoverSel)) {
+        document.body.classList.remove("cursor-on");
+        gsap.to(ring, { scale: 1, duration: 0.3, ease: "power3.out" });
+        gsap.to(dot, { scale: 1, duration: 0.3 });
+      }
+    });
+    document.addEventListener("mousedown", function () { gsap.to(ring, { scale: 0.85, duration: 0.15 }); });
+    document.addEventListener("mouseup", function () { gsap.to(ring, { scale: 1, duration: 0.3, ease: "back.out(2)" }); });
+
+    // прожектор на карточках: свет в точке курсора
+    document.querySelectorAll(".card, .plan, .laptop").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        el.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+
+    // магнитные кнопки
+    document.querySelectorAll(".cta, .plan .go").forEach(function (btn) {
+      var bx = gsap.quickTo(btn, "x", { duration: 0.4, ease: "power3" });
+      var by = gsap.quickTo(btn, "y", { duration: 0.4, ease: "power3" });
+      btn.addEventListener("mousemove", function (e) {
+        var r = btn.getBoundingClientRect();
+        bx((e.clientX - r.left - r.width / 2) * 0.25);
+        by((e.clientY - r.top - r.height / 2) * 0.35);
+      });
+      btn.addEventListener("mouseleave", function () {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+      });
+    });
+
+    return function () {
+      [dot, ring, torch].forEach(function (n) { n.remove(); });
+      document.body.classList.remove("has-cursor", "cursor-on");
+    };
+  });
+
+  // печать: всё видимое
+  window.addEventListener("beforeprint", function () {
+    gsap.set("[data-rev], [data-intro]", { clearProps: "all" });
+    document.querySelectorAll("[data-count]").forEach(function (el) {
+      el.textContent = el.getAttribute("data-count");
+    });
+  });
+})();
+</script>
+</body>
+</html>
