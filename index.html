@@ -69,7 +69,9 @@
   .lead { color: var(--mute); max-width: 640px; margin-bottom: 40px; font-size: 18px; }
   .lead b, .card p b { color: var(--ink); font-weight: 600; }
 
-  .ph { color: var(--amber); font-style: italic; }
+  .ph { color: var(--amber); font-style: normal; }
+  .lead .ph { font-weight: 400; }
+  .shift li.ph { color: var(--amber); }
 
   .grid { display: grid; gap: 18px; }
   .g3 { grid-template-columns: repeat(3, 1fr); }
@@ -107,35 +109,24 @@
   .laptop .scr { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden;
     background: linear-gradient(160deg, #23282D, #14171A 70%); display: flex; align-items: center; justify-content: center;
     color: var(--amber); font: 600 14px/1.5 "Golos Text"; font-style: italic; text-align: center; padding: 12px; }
+  .laptop .scr:has(img) { padding: 0; }
+  .laptop .scr img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .laptop .base { position: absolute; left: -6%; right: -6%; bottom: -8px; height: 8px; border-radius: 0 0 10px 10px;
     background: #1A1E22; border: 1px solid var(--line); }
   .work { padding: 0 0 22px; }
   .work h3 { font: 700 17px/1.3 "Golos Text"; margin: 22px 0 6px; }
   .work p { color: var(--mute); font-size: 14.5px; }
 
-  /* тарифы */
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
-  .plan { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;
-    display: flex; flex-direction: column; transition: transform .35s cubic-bezier(.22,.8,.26,1), border-color .35s; }
-  .plan:hover { transform: translateY(-6px); border-color: rgba(233,180,76,.4); }
-  .plan.mid { border-color: rgba(233,180,76,.55); box-shadow: 0 0 60px rgba(233,180,76,.1); position: relative; }
-  .plan .tag { position: absolute; top: -13px; left: 26px; background: var(--amber); color: #17130A;
-    font: 700 11.5px/1 "Golos Text"; letter-spacing: .12em; text-transform: uppercase; border-radius: 13px; padding: 8px 12px; }
-  .plan h3 { font: 800 17px/1.2 "Unbounded"; text-transform: uppercase; margin-bottom: 18px; }
-  .plan .price { font: 800 clamp(26px, 3vw, 34px)/1 "Unbounded"; margin-bottom: 4px; }
-  .plan .per { color: var(--mute); font-size: 13.5px; margin-bottom: 22px; }
-  .plan ul { list-style: none; display: grid; gap: 10px; margin-bottom: 26px; }
-  .plan li { position: relative; padding-left: 22px; font-size: 15px; color: var(--mute); }
-  .plan li::before { content: ""; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(233,180,76,.9); }
-  .plan li.no { opacity: .45; }
-  .plan li.no::before { background: var(--line); }
-  .plan .go { margin-top: auto; display: inline-flex; justify-content: center; align-items: center; height: 52px;
-    border-radius: 26px; border: 1px solid var(--line); color: var(--ink); text-decoration: none;
-    font: 600 15px/1 "Golos Text"; transition: .3s; }
-  .plan.mid .go { background: var(--amber); border-color: var(--amber); color: #17130A; font-weight: 700; }
-  .plan .go:hover { border-color: var(--amber); }
-  .plan.mid .go:hover { filter: brightness(1.08); }
+  /* одно предложение под задачу конкретного клиента */
+  .quote { background: var(--card); border: 1px solid rgba(233,180,76,.45); border-radius: 22px; padding: clamp(26px, 5vw, 48px); }
+  .quote-head { display: flex; justify-content: space-between; align-items: start; gap: 24px; flex-wrap: wrap; }
+  .quote h3 { font: 800 clamp(20px, 2.5vw, 30px)/1.2 "Unbounded"; text-transform: uppercase; max-width: 600px; }
+  .quote-price { color: var(--amber); font: 800 clamp(28px, 4vw, 44px)/1.15 "Unbounded"; }
+  .quote-meta { color: var(--mute); margin-top: 12px; }
+  .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .quote-grid b { display: block; margin-bottom: 12px; color: var(--ink); }
+  .quote-grid p, .quote-note { color: var(--mute); }
+  .quote-note { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
 
   /* финал */
   .final { min-height: 72svh; display: flex; flex-direction: column; justify-content: center; position: relative; padding-bottom: 90px; }
@@ -161,12 +152,12 @@
     background: radial-gradient(circle, rgba(233,180,76,.55), rgba(233,180,76,.12) 45%, transparent 70%); }
 
   /* прожектор на карточках */
-  .card, .plan, .laptop { position: relative; }
+  .card, .quote, .laptop { position: relative; }
   .card, .laptop { overflow: clip; }
-  .card::after, .plan::after, .laptop::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  .card::after, .quote::after, .laptop::after { content: ""; position: absolute; inset: 0; pointer-events: none;
     border-radius: inherit; opacity: 0; transition: opacity .35s;
     background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(233,180,76,.09), transparent 65%); }
-  .card:hover::after, .plan:hover::after, .laptop:hover::after { opacity: 1; }
+  .card:hover::after, .quote:hover::after, .laptop:hover::after { opacity: 1; }
 
   /* было — станет */
   .shift { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -200,18 +191,17 @@
   .faq .a b { color: var(--ink); font-weight: 600; }
 
   @media (max-width: 900px) {
-    .g3, .plans, .nums { grid-template-columns: 1fr 1fr; }
+    .g3, .nums { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 640px) {
-    .g3, .g2, .plans, .nums, .shift { grid-template-columns: 1fr; }
+    .g3, .g2, .nums, .shift, .quote-grid { grid-template-columns: 1fr; }
     section { padding: 80px 0 20px; }
-    .plan.mid { order: -1; }
     .step { padding-left: 64px; }
     .step::before { left: 10px; }
     .step::after { left: 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .plan, .cta { transition: none; }
+    .cta { transition: none; }
   }
   @media print {
     body::before, body::after, .bar, #progress, .hint { display: none; }
@@ -221,11 +211,13 @@
     .hero { min-height: auto; padding: 40px 0; }
     .hero .wm { display: none; }
     section { padding: 28px 0; break-inside: avoid; }
-    .plan .go, .cta { border: 1px solid #999; color: #111; background: none; }
+    .cta { border: 1px solid #999; color: #111; background: none; }
   }
 </style>
 </head>
 <body>
+<!-- Шаблон для работы после созвона. Перед отправкой замените все поля в квадратных скобках,
+     оставьте только уместные для клиента концепты и сверьте цену, срок и этапы с договором. -->
 
 <div id="progress"></div>
 <div class="bar"><span><b>Артём Чадов</b> · сайты</span><span id="secnum"><b>01</b> / 09</span></div>
@@ -239,7 +231,7 @@
     <span class="chip ph">[дата]</span>
   </div>
   <h1 data-intro>Сайт для<br><span class="cl ph">[название клиента]</span></h1>
-  <p class="sub" data-intro>Внутри&nbsp;— как я&nbsp;понял вашу задачу, план работ по&nbsp;шагам и&nbsp;<b>три варианта на&nbsp;выбор</b>. Читается за&nbsp;пять минут.</p>
+  <p class="sub" data-intro>После нашего разговора собрал в&nbsp;одном месте задачу, структуру сайта, состав работ, срок и&nbsp;стоимость.</p>
   <div class="hint" data-intro>Листайте</div>
 </header>
 
@@ -248,12 +240,12 @@
 <!-- 01 задача -->
 <section id="s1" data-sec="01">
   <div class="kicker"><em>01</em>Задача</div>
-  <h2>Зачем вам сайт</h2>
-  <p class="lead">Не&nbsp;«сделать красиво», а&nbsp;решить задачу бизнеса. Как я&nbsp;её&nbsp;понял с&nbsp;ваших слов:</p>
+  <h2>Как я понял задачу</h2>
+  <p class="lead">Проверьте, верно ли&nbsp;я&nbsp;записал главное после нашего разговора.</p>
   <div class="grid g3">
-    <div class="card" data-rev><div class="n">Доверие</div><h3 class="ph">[что сейчас: отзывы отличные, а вести человека некуда]</h3><p>Страница отвечает на&nbsp;вопросы до&nbsp;звонка: услуги, цены, фото работ.</p></div>
-    <div class="card" data-rev><div class="n">Посадочная</div><h3 class="ph">[куда идёт трафик: карты, реклама, шапка группы]</h3><p>Тот&nbsp;же трафик, но&nbsp;человек попадает туда, где всё ясно,&nbsp;— и&nbsp;оставляет заявку.</p></div>
-    <div class="card" data-rev><div class="n">Заявки</div><h3 class="ph">[что теряется: вечерние звонки, заказы в личке]</h3><p>Форма записи работает и&nbsp;в&nbsp;23:00, когда вы&nbsp;уже закрыты.</p></div>
+    <div class="card" data-rev><div class="n">Сейчас</div><h3 class="ph">[как вас находят и&nbsp;что видят]</h3><p class="ph">[конкретная трудность из&nbsp;разговора]</p></div>
+    <div class="card" data-rev><div class="n">Нужно</div><h3 class="ph">[что должен узнать посетитель]</h3><p class="ph">[какой вопрос сайт должен снять]</p></div>
+    <div class="card" data-rev><div class="n">Итог</div><h3 class="ph">[что человек сможет сделать]</h3><p class="ph">[например, выбрать услугу и&nbsp;оставить заявку]</p></div>
   </div>
 </section>
 
@@ -261,24 +253,22 @@
 <section id="s1b" data-sec="02">
   <div class="kicker"><em>02</em>Что изменится</div>
   <h2>Как сейчас — и как станет</h2>
-  <p class="lead">Без обещаний золотых гор. Просто два сценария одного и того же дня: <span class="ph">[подставить пример из ниши клиента]</span></p>
+  <p class="lead">Один пример пути клиента: <span class="ph">[опишите ситуацию, которую обсудили на&nbsp;созвоне]</span></p>
   <div class="shift">
     <div class="col was" data-rev>
       <h3>Как сейчас</h3>
       <ul>
-        <li>Человек с карт попадает в ленту соцсети — и уходит листать конкурентов</li>
-        <li>Вечерний клиент звонит в закрытую дверь, заявка пропадает</li>
-        <li>Цены выспрашивают в личке — половина до ответа не доживает</li>
-        <li>Решение принимают по чужим отзывам на агрегаторах</li>
+        <li class="ph">[откуда человек приходит сейчас]</li>
+        <li class="ph">[какую информацию ему приходится искать]</li>
+        <li class="ph">[на каком шаге он может уйти]</li>
       </ul>
     </div>
     <div class="col now" data-rev>
       <h3>Как станет</h3>
       <ul>
-        <li>Тот же человек видит услуги, цены и запись — и оставляет заявку</li>
-        <li>Форма работает круглосуточно, утром заявка ждёт вас</li>
-        <li>Цены и ответы видны сразу — пишут уже тёплыми</li>
-        <li>Доверие собираете вы: работы, лица и отзывы в одном месте</li>
+        <li class="ph">[куда он попадёт на&nbsp;сайте]</li>
+        <li class="ph">[что увидит для&nbsp;выбора]</li>
+        <li class="ph">[какое действие сможет сделать]</li>
       </ul>
     </div>
   </div>
@@ -287,28 +277,28 @@
 <!-- 03 референсы -->
 <section id="s2" data-sec="03">
   <div class="kicker"><em>03</em>Референсы</div>
-  <h2>Что нравится вам&nbsp;— и&nbsp;что делают коллеги</h2>
-  <p class="lead">Ваши примеры плюс те, кого вы&nbsp;не&nbsp;называли. Что берём, что делаем лучше:</p>
+  <h2>На что я опираюсь</h2>
+  <p class="lead">Посмотрел ваши примеры и&nbsp;сайты компаний из&nbsp;той&nbsp;же ниши. Вот что пригодится именно здесь.</p>
   <div class="grid g3">
-    <div class="card" data-rev><h3 class="ph">[референс клиента 1]</h3><p class="ph">[что в нём работает: крупные фото, цены без «уточняйте»]</p></div>
-    <div class="card" data-rev><h3 class="ph">[референс клиента 2]</h3><p class="ph">[что не берём и почему]</p></div>
-    <div class="card" data-rev><h3 class="ph">[конкурент, которого он не назвал]</h3><p class="ph">[чем выделимся на его фоне]</p></div>
+    <div class="card" data-rev><h3 class="ph">[ссылка на&nbsp;пример клиента]</h3><p class="ph">[что в&nbsp;нём удобно посетителю]</p></div>
+    <div class="card" data-rev><h3 class="ph">[ссылка на&nbsp;сайт в&nbsp;нише]</h3><p class="ph">[что можно сделать понятнее]</p></div>
+    <div class="card" data-rev><h3 class="ph">[ваше отличие]</h3><p class="ph">[как показать его на&nbsp;сайте]</p></div>
   </div>
-  <p class="lead" style="margin-top:28px;">Вывод: <span class="ph">[почему предлагаю именно такие варианты — одной фразой]</span></p>
+  <p class="lead" style="margin-top:28px;">Поэтому предлагаю: <span class="ph">[одно решение для&nbsp;этого проекта]</span></p>
 </section>
 
 <!-- 03 план -->
 <section id="s3" data-sec="04">
   <div class="kicker"><em>04</em>План работ</div>
-  <h2>Шесть шагов&nbsp;— виден весь путь</h2>
-  <p class="lead">Каждый шаг заканчивается вашим «да». Дальше двигаемся только после утверждения.</p>
+  <h2>Как сделаю сайт</h2>
+  <p class="lead">Перед началом работы фиксируем состав, срок и&nbsp;цену. Структуру и&nbsp;дизайн согласовываем по&nbsp;ходу.</p>
   <div class="steps">
-    <div class="step" data-rev><h3>Разговор о&nbsp;задаче</h3><p>Что за&nbsp;дело, откуда клиенты, что должно измениться.</p><span class="ok">Итог: понятая задача</span></div>
-    <div class="step" data-rev><h3>Структура сайта</h3><p>Разделы, первый экран, что писать в&nbsp;блоках&nbsp;— под вашу ситуацию.</p><span class="ok">Итог: утверждённая структура</span></div>
-    <div class="step" data-rev><h3>Договор и&nbsp;первая оплата</h3><p>Сроки, цена и&nbsp;этапы зафиксированы в&nbsp;договоре. Чек самозанятого.</p><span class="ok">Итог: подписанный договор</span></div>
-    <div class="step" data-rev><h3>Дизайн и&nbsp;сборка</h3><p>Собираю сайт, промежуточный результат показываю по&nbsp;ссылке.</p><span class="ok">Итог: рабочая версия</span></div>
-    <div class="step" data-rev><h3>Правки и&nbsp;утверждение</h3><p>Проходим по&nbsp;странице вместе, довожу до&nbsp;вашего «нравится».</p><span class="ok">Итог: утверждённый сайт</span></div>
-    <div class="step" data-rev><h3>Запуск</h3><p>Домен, публикация, вторая оплата. Дальше&nbsp;— месяц технических правок.</p><span class="ok">Итог: сайт работает</span></div>
+    <div class="step" data-rev><h3>Уточняю задачу</h3><p>Сверяем, какие страницы нужны и&nbsp;что важно вашим клиентам.</p><span class="ok">Итог: бриф и&nbsp;объём работ</span></div>
+    <div class="step" data-rev><h3>Договор и&nbsp;первая оплата</h3><p>Фиксируем цену, сроки и&nbsp;состав работ. После оплаты выдаю чек.</p><span class="ok">Итог: согласованные условия</span></div>
+    <div class="step" data-rev><h3>Структура сайта</h3><p>Показываю порядок блоков и&nbsp;что будет на&nbsp;каждом экране.</p><span class="ok">Итог: утверждённая структура</span></div>
+    <div class="step" data-rev><h3>Дизайн</h3><p>Показываю внешний вид по&nbsp;ссылке и&nbsp;вношу согласованные правки.</p><span class="ok">Итог: утверждённый дизайн</span></div>
+    <div class="step" data-rev><h3>Вторая оплата и&nbsp;сборка</h3><p>После второй части оплаты собираю сайт и&nbsp;проверяю его на&nbsp;телефоне.</p><span class="ok">Итог: рабочий сайт</span></div>
+    <div class="step" data-rev><h3>Запуск</h3><p>Помогаю подключить домен и&nbsp;хостинг. В&nbsp;течение месяца после запуска внесу небольшие технические правки.</p><span class="ok">Итог: сайт доступен клиентам</span></div>
   </div>
 </section>
 
@@ -318,87 +308,54 @@
   <h2>Без сюрпризов</h2>
   <div class="grid g2" style="margin-top:34px;">
     <div class="card" data-rev><h3>Договор и&nbsp;чек</h3><p>Работаю официально как самозанятый: договор с&nbsp;ценой и&nbsp;сроками, чек после каждой оплаты.</p></div>
-    <div class="card" data-rev><h3>Оплата по&nbsp;этапам</h3><p><b>До&nbsp;договора вы&nbsp;ничего не&nbsp;платите.</b> Первая часть&nbsp;— после утверждения структуры, вторая&nbsp;— при запуске.</p></div>
-    <div class="card" data-rev><h3>Под ключ</h3><p>Тексты и&nbsp;техническая часть на&nbsp;мне: домен, подключение, скорость, телефонная версия.</p></div>
-    <div class="card" data-rev><h3>Месяц правок</h3><p>Месяц после запуска правлю тексты, фото и&nbsp;мелочи&nbsp;— это входит в&nbsp;цену.</p></div>
+    <div class="card" data-rev><h3>Оплата по&nbsp;этапам</h3><p>Первая часть&nbsp;— после договора, перед работой над структурой. Вторая&nbsp;— после согласования дизайна, перед сборкой сайта.</p></div>
+    <div class="card" data-rev><h3>Домен и&nbsp;доступы</h3><p>Помогу выбрать и&nbsp;подключить домен и&nbsp;хостинг. Оформляете их&nbsp;на&nbsp;себя, доступы остаются у&nbsp;вас.</p></div>
+    <div class="card" data-rev><h3>Месяц правок</h3><p>В&nbsp;течение месяца после запуска бесплатно внесу небольшие технические правки: заменю текст, фото или&nbsp;поправлю мелочи.</p></div>
   </div>
   <div class="nums">
-    <div class="num" data-rev><b><span data-count="0">0</span>&nbsp;₽</b><span>платите до&nbsp;договора</span></div>
-    <div class="num" data-rev><b><span data-count="6">0</span></b><span>шагов&nbsp;— и&nbsp;каждый утверждаете вы</span></div>
-    <div class="num" data-rev><b><span data-count="2">0</span></b><span>оплаты: после структуры и&nbsp;при запуске</span></div>
-    <div class="num" data-rev><b><span data-count="30">0</span>&nbsp;<span class="cl">дней</span></b><span>правок после запуска&nbsp;— бесплатно</span></div>
+    <div class="num" data-rev><b><span data-count="0">0</span>&nbsp;₽</b><span>до&nbsp;подписания договора</span></div>
+    <div class="num" data-rev><b><span data-count="6">0</span></b><span>понятных этапов работы</span></div>
+    <div class="num" data-rev><b><span data-count="2">0</span></b><span>части оплаты по&nbsp;договору</span></div>
+    <div class="num" data-rev><b><span data-count="30">0</span>&nbsp;<span class="cl">дней</span></b><span>на&nbsp;небольшие технические правки после запуска</span></div>
   </div>
 </section>
 
 <!-- 05 работы -->
 <section id="s5" data-sec="06">
   <div class="kicker"><em>06</em>Работы</div>
-  <h2>Похожие задачи</h2>
-  <p class="lead">Не&nbsp;всё портфолио&nbsp;— три работы, близкие к&nbsp;вашей. Ссылки живые: откройте с&nbsp;телефона и&nbsp;посмотрите, как это устроено.</p>
+  <h2>Как я показываю работу</h2>
+  <p class="lead">Три концепта из&nbsp;портфолио. Они показывают, как я выстраиваю содержание и&nbsp;подачу под&nbsp;разные задачи.</p>
   <div class="grid g3">
     <div class="work" data-rev>
-      <div class="laptop"><div class="scr ph">[скрин работы 1 — та же ниша]</div><div class="base"></div></div>
-      <h3 class="ph">[название + ссылка]</h3><p class="ph">[какая была задача и что сделано]</p>
+      <div class="laptop"><div class="scr"><img src="КП — материалы/Трансканада.jpg" alt="Первый экран концепта сайта туров по Канаде"></div><div class="base"></div></div>
+      <h3>Трансканада</h3><p>Концепт сайта туров: маршруты, даты поездок и&nbsp;условия собраны в&nbsp;понятный путь.</p>
     </div>
     <div class="work" data-rev>
-      <div class="laptop"><div class="scr ph">[скрин работы 2 — похожая механика]</div><div class="base"></div></div>
-      <h3 class="ph">[название + ссылка]</h3><p class="ph">[например: запись, каталог, до/после]</p>
+      <div class="laptop"><div class="scr"><img src="КП — материалы/Изнанка.jpg" alt="Первый экран концепта сайта студии стиля"></div><div class="base"></div></div>
+      <h3>Изнанка</h3><p>Концепт студии стиля: услуги, подход и&nbsp;ответы на&nbsp;сомнения в&nbsp;одной визуальной системе.</p>
     </div>
     <div class="work" data-rev>
-      <div class="laptop"><div class="scr ph">[скрин работы 3]</div><div class="base"></div></div>
-      <h3 class="ph">[название + ссылка]</h3><p class="ph">[одной строкой]</p>
+      <div class="laptop"><div class="scr"><img src="КП — материалы/Эмаль.jpg" alt="Первый экран концепта сайта стоматологии"></div><div class="base"></div></div>
+      <h3>Эмаль</h3><p>Концепт стоматологии: услуги и&nbsp;специалисты без&nbsp;сложных слов, понятный путь к&nbsp;записи.</p>
     </div>
   </div>
 </section>
 
-<!-- 06 тарифы -->
+<!-- 07 предложение под конкретный проект -->
 <section id="s6" data-sec="07">
-  <div class="kicker"><em>07</em>Варианты</div>
-  <h2>Три варианта&nbsp;— по&nbsp;одним строкам</h2>
-  <p class="lead">Выбирать «какой из&nbsp;трёх» проще, чем «да или нет». Средний берут чаще всего.<br>Цена фиксируется в&nbsp;договоре и&nbsp;по&nbsp;ходу работы не&nbsp;растёт.</p>
-  <div class="plans">
-    <div class="plan" data-rev>
-      <h3>Одна страница</h3>
-      <div class="price">10&nbsp;000&nbsp;₽</div>
-      <div class="per">срок 3–4&nbsp;дня</div>
-      <ul>
-        <li>Структура и&nbsp;тексты</li>
-        <li>Дизайн под ваше дело, не&nbsp;шаблон</li>
-        <li>Телефонная версия</li>
-        <li>Форма заявки</li>
-        <li>Месяц правок после запуска</li>
-        <li class="no">Домен и&nbsp;запуск под ключ</li>
-        <li class="no">Телеграм-бот для заявок</li>
-      </ul>
-      <a class="go ph" href="#" >Обсудить этот вариант</a>
+  <div class="kicker"><em>07</em>Срок и&nbsp;стоимость</div>
+  <h2>Предлагаю для&nbsp;вас</h2>
+  <p class="lead">Состав работ, срок и&nbsp;цена для&nbsp;проекта, который мы&nbsp;обсудили.</p>
+  <div class="quote" data-rev>
+    <div class="quote-head"><h3 class="ph">[формат и&nbsp;название сайта]</h3><div class="quote-price ph">[итоговая цена] ₽</div></div>
+    <p class="quote-meta">Срок: <span class="ph">[сколько рабочих дней от&nbsp;начала работ]</span></p>
+    <div class="quote-grid">
+      <div><b>Что входит</b><p class="ph">[перечислите страницы и&nbsp;блоки, дизайн, адаптацию под&nbsp;телефон, форму заявки, нужные подключения]</p></div>
+      <div><b>Как рассчитана цена</b><p class="ph">[количество смысловых блоков × цена блока + отдельные функции = итог]</p></div>
+      <div><b>Оплата</b><p>Первая часть&nbsp;— после договора, вторая&nbsp;— после согласования дизайна, перед сборкой. <span class="ph">[сумма каждой части]</span></p></div>
+      <div><b>Что понадобится от&nbsp;вас</b><p class="ph">[материалы, доступы и&nbsp;ответственный за&nbsp;согласование]</p></div>
     </div>
-    <div class="plan mid" data-rev>
-      <div class="tag">Выбирают чаще</div>
-      <h3>Под ключ</h3>
-      <div class="price">25&nbsp;000&nbsp;₽</div>
-      <div class="per">срок 7–10&nbsp;дней</div>
-      <ul>
-        <li>Всё из&nbsp;«Одной страницы»</li>
-        <li>8–12 блоков: услуги, цены, работы, отзывы</li>
-        <li>Карта, отзывы, запись</li>
-        <li>Домен, почта, запуск&nbsp;— под ключ</li>
-        <li>Месяц правок после запуска</li>
-        <li class="no">Телеграм-бот для заявок</li>
-      </ul>
-      <a class="go ph" href="#">Обсудить этот вариант</a>
-    </div>
-    <div class="plan" data-rev>
-      <h3>Под ключ + бот</h3>
-      <div class="price">40&nbsp;000&nbsp;₽</div>
-      <div class="per">срок 12–14&nbsp;дней</div>
-      <ul>
-        <li>Всё из&nbsp;«Под ключ»</li>
-        <li>Телеграм-бот: заявки падают вам в&nbsp;чат</li>
-        <li>Автоответы на&nbsp;частые вопросы</li>
-        <li>Месяц правок после запуска</li>
-      </ul>
-      <a class="go ph" href="#">Обсудить этот вариант</a>
-    </div>
+    <p class="quote-note">Домен и&nbsp;хостинг оформляются на&nbsp;вас. Их&nbsp;стоимость оплачивается сервису отдельно. Если нужна другая разбивка оплаты, согласуем её&nbsp;до&nbsp;договора.</p>
   </div>
 </section>
 
@@ -406,31 +363,31 @@
 <section id="s8" data-sec="08">
   <div class="kicker"><em>08</em>Частые вопросы</div>
   <h2>Что обычно спрашивают</h2>
-  <p class="lead">Отвечаю заранее, чтобы на созвоне говорить о вашем деле, а не о формальностях.</p>
+  <p class="lead">Коротко о&nbsp;том, что обычно уточняют после созвона.</p>
   <div class="faq">
     <details data-rev>
-      <summary>Почему я ничего не плачу до договора?</summary>
-      <div class="a">Сначала я разбираю вашу задачу и присылаю структуру будущего сайта. <b>Вы смотрите на подход до того, как речь заходит о деньгах.</b> Первая оплата — только после того, как структура вам понравилась и мы подписали договор.</div>
+      <summary>Когда начинается работа?</summary>
+      <div class="a">После договора и&nbsp;первой части оплаты. Тогда готовлю подробную структуру сайта и&nbsp;показываю её&nbsp;вам на&nbsp;согласование.</div>
     </details>
     <details data-rev>
       <summary>А если мне не понравится дизайн?</summary>
-      <div class="a">Путь разбит на шесть шагов, и каждый заканчивается вашим «да». <b>Дальше я не двигаюсь, пока вам не нравится.</b> Правки — это часть работы, а не одолжение.</div>
+      <div class="a">Покажу дизайн по&nbsp;ссылке. Обсудим замечания и&nbsp;согласуем правки до&nbsp;сборки сайта. <span class="ph">[уточните число раундов правок в&nbsp;договоре]</span></div>
     </details>
     <details data-rev>
       <summary>Сколько времени это займёт у меня?</summary>
-      <div class="a">Один разговор о деле в начале и два-три коротких созвона по ходу. <b>Тексты, фото и техническая часть — на мне.</b> Ваше участие — рассказать о деле и говорить «да» или «поправь».</div>
+      <div class="a">После созвона понадобится ответить на&nbsp;вопросы по&nbsp;проекту и&nbsp;передать материалы. Затем согласовать структуру и&nbsp;дизайн. <span class="ph">[уточните, кто готовит тексты и&nbsp;фото]</span></div>
     </details>
     <details data-rev>
       <summary>Что будет после запуска?</summary>
-      <div class="a">Месяц правок бесплатно: тексты, фото, мелочи. <b>Домен и все доступы оформляются на вас</b> — сайт ваш, а не арендованный. Дальше остаюсь на связи.</div>
+      <div class="a">В&nbsp;течение месяца бесплатно внесу небольшие технические правки: заменю текст, фото или&nbsp;поправлю мелочи. Домен, хостинг и&nbsp;доступы остаются у&nbsp;вас.</div>
     </details>
     <details data-rev>
       <summary>Это шаблон?</summary>
-      <div class="a">Нет. Дизайн собирается под ваше дело: <b>цвета, подача и структура — из вашей ниши,</b> а не из каталога тем. Поэтому сайт быстро открывается и не требует ежемесячной платы конструктору.</div>
+      <div class="a">Структуру и&nbsp;дизайн согласуем под&nbsp;вашу задачу. В&nbsp;КП записано, какие блоки и&nbsp;функции нужны именно этому сайту.</div>
     </details>
     <details data-rev>
       <summary>Вдруг вы пропадёте?</summary>
-      <div class="a">В договоре — этапы и сроки, работаю официально, с чеком самозанятого. <b>Промежуточный результат вы видите по ссылке на каждом шаге,</b> отвечаю в тот же день.</div>
+      <div class="a">В&nbsp;договоре фиксируем состав, сроки и&nbsp;цену. После каждой оплаты выдаю чек. Структуру и&nbsp;дизайн показываю по&nbsp;ссылке; на&nbsp;сообщения отвечаю сам.</div>
     </details>
   </div>
 </section>
@@ -438,17 +395,16 @@
 <!-- 09 финал -->
 <section class="final" id="s7" data-sec="09">
   <div class="kicker"><em>09</em>Следующий шаг</div>
-  <h2 data-rev>Если по&nbsp;смыслу откликается&nbsp;—</h2>
-  <p class="sub" data-rev>выберите вариант, и&nbsp;я&nbsp;пришлю договор. Структуру под вашу задачу вы&nbsp;уже видели&nbsp;— начинаем с&nbsp;неё, без ожидания.</p>
-  <a class="cta" data-rev href="#"><span>Написать в&nbsp;Telegram</span><span class="ph">[@ник]</span></a>
-  <p class="note" data-rev>Предложение действительно до&nbsp;<span class="ph">[дата + 2&nbsp;недели]</span>&nbsp;— потом пересоберу цифры.</p>
+  <h2 data-rev>Давайте сверим детали</h2>
+  <p class="sub" data-rev>Если задача и&nbsp;состав работ записаны верно, ответьте на&nbsp;это предложение. Уточню оставшиеся вопросы и&nbsp;подготовлю договор с&nbsp;ценой и&nbsp;сроками.</p>
+  <p class="note" data-rev>Контакт для&nbsp;ответа: <span class="ph">[ваш Telegram или&nbsp;другой согласованный канал]</span></p>
 </section>
 
 </main>
 
 <footer class="wrap">
   <span>Артём Чадов · Сайты для небольшого бизнеса и&nbsp;частных специалистов</span>
-  <span>Собрано под <span class="ph">[название клиента]</span>, <span class="ph">[дата]</span></span>
+  <span>Собрано под <span class="ph">[название клиента]</span>, <span class="ph">[дата]</span></span>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
@@ -554,7 +510,7 @@
       shown = false; gsap.to([dot, ring, torch], { autoAlpha: 0, duration: 0.3 });
     });
 
-    var hoverSel = "a, button, summary, .plan";
+    var hoverSel = "a, button, summary";
     document.addEventListener("mouseover", function (e) {
       if (e.target.closest(hoverSel)) {
         document.body.classList.add("cursor-on");
@@ -573,7 +529,7 @@
     document.addEventListener("mouseup", function () { gsap.to(ring, { scale: 1, duration: 0.3, ease: "back.out(2)" }); });
 
     // прожектор на карточках: свет в точке курсора
-    document.querySelectorAll(".card, .plan, .laptop").forEach(function (el) {
+    document.querySelectorAll(".card, .quote, .laptop").forEach(function (el) {
       el.addEventListener("mousemove", function (e) {
         var r = el.getBoundingClientRect();
         el.style.setProperty("--mx", (e.clientX - r.left) + "px");
@@ -582,7 +538,7 @@
     });
 
     // магнитные кнопки
-    document.querySelectorAll(".cta, .plan .go").forEach(function (btn) {
+    document.querySelectorAll(".cta").forEach(function (btn) {
       var bx = gsap.quickTo(btn, "x", { duration: 0.4, ease: "power3" });
       var by = gsap.quickTo(btn, "y", { duration: 0.4, ease: "power3" });
       btn.addEventListener("mousemove", function (e) {

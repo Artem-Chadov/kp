@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Структура сайта — к коммерческому предложению</title>
+<style>
+  :root { color-scheme: light; font-family: Arial, sans-serif; }
+  * { box-sizing: border-box; }
+  body { max-width: 860px; margin: 0 auto; padding: 50px 24px 80px; color: #171717; background: #fff; }
+  .meta { display: flex; justify-content: space-between; gap: 16px; color: #555; font-size: 13px; }
+  h1 { margin: 72px 0 16px; font-size: clamp(36px, 7vw, 66px); line-height: 1.05; letter-spacing: -.04em; }
+  .intro { max-width: 670px; margin: 0 0 48px; font-size: 18px; line-height: 1.45; }
+  .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 42px; padding: 24px 0; border-top: 2px solid #171717; border-bottom: 1px solid #aaa; }
+  .summary b, .part-label { display: block; margin-bottom: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .summary p { margin: 0; font-size: 16px; line-height: 1.45; }
+  .part { display: grid; grid-template-columns: 62px 1fr; gap: 22px; padding: 27px 0; border-bottom: 1px solid #ccc; }
+  .number { font-size: 21px; font-weight: 700; }
+  h2 { margin: 0 0 12px; font-size: 25px; line-height: 1.2; }
+  .part p { margin: 8px 0; line-height: 1.5; }
+  .part p span { color: #666; }
+  .placeholder { background: #f1f1f1; padding: 1px 4px; }
+  .foot { margin-top: 36px; color: #555; font-size: 14px; line-height: 1.45; }
+  @media (max-width: 600px) { .summary { grid-template-columns: 1fr; } .part { grid-template-columns: 40px 1fr; gap: 12px; } }
+  @media print { body { padding: 0; } .part { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<!-- Перед отправкой замените все поля в квадратных скобках и удалите лишние блоки. -->
+  <div class="meta"><span>Артём Чадов · структура будущего сайта</span><span class="placeholder">[дата]</span></div>
+  <h1>Сайт для <span class="placeholder">[название клиента]</span></h1>
+  <p class="intro">После нашего разговора я собрал схему будущего сайта: что посетитель увидит на&nbsp;каждом шаге и&nbsp;зачем нужен каждый блок.</p>
+  <div class="summary">
+    <div><b>Задача сайта</b><p class="placeholder">[что посетитель должен понять и&nbsp;сделать]</p></div>
+    <div><b>Кому он&nbsp;нужен</b><p class="placeholder">[основная группа клиентов и&nbsp;её&nbsp;вопрос]</p></div>
+  </div>
+  <div class="part"><div class="number">01</div><div><h2 class="placeholder">[название первого экрана]</h2><p><span>Покажем:</span> <span class="placeholder">[главное предложение, подтверждение и&nbsp;действие]</span></p><p><span>Зачем:</span> <span class="placeholder">[что человек должен понять за&nbsp;несколько секунд]</span></p></div></div>
+  <div class="part"><div class="number">02</div><div><h2 class="placeholder">[название блока]</h2><p><span>Покажем:</span> <span class="placeholder">[услуги, форматы или&nbsp;варианты выбора]</span></p><p><span>Зачем:</span> <span class="placeholder">[какой вопрос снимает этот блок]</span></p></div></div>
+  <div class="part"><div class="number">03</div><div><h2 class="placeholder">[название блока]</h2><p><span>Покажем:</span> <span class="placeholder">[факты, работы, фото или&nbsp;отзывы, если они есть]</span></p><p><span>Зачем:</span> <span class="placeholder">[что подтвердит доверие]</span></p></div></div>
+  <div class="part"><div class="number">04</div><div><h2 class="placeholder">[название блока]</h2><p><span>Покажем:</span> <span class="placeholder">[процесс, сроки или&nbsp;условия]</span></p><p><span>Зачем:</span> <span class="placeholder">[какое сомнение исчезнет]</span></p></div></div>
+  <div class="part"><div class="number">05</div><div><h2 class="placeholder">[название блока]</h2><p><span>Покажем:</span> <span class="placeholder">[вопросы и&nbsp;ответы по&nbsp;этой нише]</span></p><p><span>Зачем:</span> <span class="placeholder">[что мешает оставить заявку сейчас]</span></p></div></div>
+  <div class="part"><div class="number">06</div><div><h2 class="placeholder">[контактный блок]</h2><p><span>Покажем:</span> <span class="placeholder">[форма, телефон или&nbsp;удобный способ связи]</span></p><p><span>Зачем:</span> <span class="placeholder">[какое действие будет следующим]</span></p></div></div>
+  <p class="foot">Число и&nbsp;порядок блоков меняются под&nbsp;задачу. Эта схема и&nbsp;коммерческое предложение вместе фиксируют, что именно мы&nbsp;договорились сделать.</p>
+</body>
+</html>
